@@ -22,7 +22,7 @@ Replace values for `PROJECT_ID`, `PROJEC_NUM`, and `USER`, then run commands in 
 
 [2.a] Set project and user login
 
-    ```
+```
 gcloud config get-value project
 export PROJECT_ID=
 
