@@ -1,7 +1,8 @@
-# mlops-w-vertex-ai
+# mlops with Vertex AI
 
 
 > This repo demonstrates how to build a pipeline that trains a custom model either on a periodic schedule or when new data is inserted into the dataset using Vertex AI Pipelines and Cloud Run functions
+
 
 **high-level objectives**
 
@@ -13,7 +14,7 @@
 
 ---
 
-### custom training package
+## custom training package
 
 We'll create a Python package that contains the code for training a custom model in Vertex AI with a [prebuilt container](https://cloud.google.com/vertex-ai/docs/training/create-python-pre-built-container). This package will run as one of the steps in our continuous training pipeline
 
@@ -28,7 +29,7 @@ training_package
     └── task.py
 ```
 
-### continuous training with Vertex AI Pipelines
+## continuous training pipeline
 
 **pipeline steps**
 
@@ -38,7 +39,7 @@ training_package
 4. configure email notifications for pipeline completion (success or failure)
 
 <details>
-  <summary>Pipeline DAG in Vertex AI console</summary>
+  <summary>Pipeline DAG in Google Cloud console</summary>
 
 <img src='imgs/ct_pipeline_v1.png' width='672' height='1085'>
     
@@ -46,7 +47,7 @@ training_package
 
 
 <details>
-  <summary>expand to see pipeline code</summary>
+  <summary>pipeline code</summary>
 
 ```
     # Notification task
@@ -169,7 +170,7 @@ training_package
 </details>
 
 
-### Setup instructions
+## Setup instructions
 
 <details>
   <summary>[1] pip installs</summary>
