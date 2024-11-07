@@ -1,6 +1,42 @@
 # mlops-w-vertex-ai
 
-This repo demonstrates how to build a pipeline that automatically trains a custom model either on a periodic schedule or when new data is inserted into the dataset using Vertex AI Pipelines and Cloud Run functions
+> This repo demonstrates how to build a pipeline that trains a custom model either on a periodic schedule or when new data is inserted into the dataset using Vertex AI Pipelines and Cloud Run functions
+
+## objectives
+
+1. Acquire and prepare dataset in BigQuery.
+
+2. Create and upload a custom training package. When executed, it reads data from the dataset and trains the model.
+
+3. Build a Vertex AI Pipeline. This pipeline executes the custom training package, uploads the model to the Vertex AI Model Registry, runs the evaluation job, and sends an email notification.
+
+4. Manually run the pipeline.
+
+5. Create a Cloud Function with an Eventarc **trigger** that runs the pipeline whenever new data is inserted into the BigQuery dataset.
+
+### custom training package for Vertex Training
+
+We'll create a Python package that contains the code for training a custom model in Vertex AI with a [prebuilt container](https://cloud.google.com/vertex-ai/docs/training/create-python-pre-built-container). This package will run as one of the steps in our continuous training pipeline
+
+the structure of our package should look like this:
+
+```
+training_package
+├── __init__.py
+├── setup.py
+└── trainer
+    ├── __init__.py
+    └── task.py
+```
+
+### Continuous training with Vertex AI Pipelines
+
+<details>
+  <summary>Pipeline DAG in Vertex AI console</summary>
+
+<img src='imgs/ct_pipeline_v1.png' width='672' height='1085'>
+    
+</details>
 
 ### Setup instructions
 
@@ -70,5 +106,15 @@ gcloud services enable artifactregistry.googleapis.com \
 ```
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:PROJECT_NUM-compute@developer.gserviceaccount.com" --role=roles/aiplatform.serviceAgent
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:PROJECT_NUM-compute@developer.gserviceaccount.com" --role=roles/eventarc.eventReceiver
+```
+</details>
+
+<details>
+  <summary>[3] Create repo in the artifact registry</summary>
+    
+```
+export REGION=us-central1
+export REPO_NAME=mlops
+gcloud artifacts repositories create $REPO_NAME --location=$REGION --repository-format=KFP
 ```
 </details>
