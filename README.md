@@ -3,6 +3,7 @@
 
 > This repo demonstrates how to build a pipeline that trains a custom model either on a periodic schedule or when new data is inserted into the dataset using Vertex AI Pipelines and Cloud Run functions
 
+---
 
 **high-level objectives**
 
@@ -13,7 +14,7 @@
 5. Create a **pipeline trigger** using `Cloud Function with an Eventarc` that runs the pipeline when new data is inserted into the BigQuery dataset
 
 
-#### custom training package
+### custom training package
 
 We'll create a Python package that contains the code for training a custom model in Vertex AI with a [prebuilt container](https://cloud.google.com/vertex-ai/docs/training/create-python-pre-built-container). This package will run as one of the steps in our continuous training pipeline
 
@@ -28,9 +29,10 @@ training_package
     └── task.py
 ```
 
-#### Continuous training with Vertex AI Pipelines
+### continuous training with Vertex AI Pipelines
 
 **pipeline steps**
+
 1. execute the custom training package
 2. upload the trained model to the Vertex AI Model Registry 
 3. run a model evaluation job
