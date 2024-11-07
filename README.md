@@ -3,8 +3,6 @@
 
 > This repo demonstrates how to build a pipeline that trains a custom model either on a periodic schedule or when new data is inserted into the dataset using Vertex AI Pipelines and Cloud Run functions
 
----
-
 **high-level objectives**
 
 1. Prepare dataset in BigQuery
@@ -13,6 +11,7 @@
 4. Run pipeline manually (and optionally via schedule)
 5. Create a **pipeline trigger** using `Cloud Function with an Eventarc` that runs the pipeline when new data is inserted into the BigQuery dataset
 
+---
 
 ### custom training package
 
