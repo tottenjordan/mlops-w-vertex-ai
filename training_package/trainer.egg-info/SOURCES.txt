@@ -1,3 +1,4 @@
+README.md
 setup.py
 trainer/__init__.py
 trainer/task.py
@@ -6,3 +7,8 @@ trainer.egg-info/SOURCES.txt
 trainer.egg-info/dependency_links.txt
 trainer.egg-info/requires.txt
 trainer.egg-info/top_level.txt
+trainer.egg-info/.ipynb_checkpoints/PKG-INFO-checkpoint
+trainer.egg-info/.ipynb_checkpoints/SOURCES-checkpoint.txt
+trainer.egg-info/.ipynb_checkpoints/dependency_links-checkpoint.txt
+trainer.egg-info/.ipynb_checkpoints/requires-checkpoint.txt
+trainer.egg-info/.ipynb_checkpoints/top_level-checkpoint.txt

@@ -1,7 +1,11 @@
 from setuptools import find_packages
 from setuptools import setup
 
-REQUIRED_PACKAGES=["google-cloud-bigquery[pandas]","google-cloud-bigquery-storage"]
+REQUIRED_PACKAGES=[
+    "google-cloud-bigquery[pandas]",
+    "google-cloud-bigquery-storage",
+    "google-cloud-aiplatform==1.71.0"
+]
 setup(
     name='trainer',
     version='0.1',

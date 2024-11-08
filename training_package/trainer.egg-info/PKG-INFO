@@ -4,3 +4,4 @@ Version: 0.1
 Summary: Training application package for chicago taxi trip fare prediction.
 Requires-Dist: google-cloud-bigquery[pandas]
 Requires-Dist: google-cloud-bigquery-storage
+Requires-Dist: google-cloud-aiplatform==1.71.0

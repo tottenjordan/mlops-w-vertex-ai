@@ -1,7 +1,7 @@
 # Import the libraries
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from google.cloud import bigquery, bigquery_storage
+from google.cloud import bigquery, bigquery_storage, aiplatform
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -14,8 +14,6 @@ import pickle
 import csv
 import os
 
-from google.cloud import aiplatform
-
 # add parser arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--project-id', dest='project_id',  type=str, help='Project ID.')
@@ -24,9 +22,26 @@ parser.add_argument('--training-dir', dest='training_dir', default=os.getenv("AI
 parser.add_argument('--bq-source', dest='bq_source',  
                     type=str, help='BigQuery data source for training data.')
 parser.add_argument('--data-dir', dest='data_dir',type=str,)
+parser.add_argument('--experiment-name', dest='experiment_name',type=str,)
 parser.add_argument('--experiment-run', dest='experiment_run',type=str,)
 args = parser.parse_args()
 
+# Get default credentials
+print(f"getting default credentials...")
+credentials, project = auth.default()
+bqclient = bigquery.Client(credentials=credentials, project=args.project_id)
+bqstorageclient = bigquery_storage.BigQueryReadClient(credentials=credentials)
+print(f"bigquery client: {bqclient}")
+
+print(f"init aiplatform...")
+# aiplatform.init(
+#     project=args.project_id,
+#     location='us-central1',
+#     experiment=args.experiment_name,
+#     credentials=credentials
+# )
+
+print(f"Run BQ query...")
 # data preparation code
 BQ_QUERY = """
 with tmp_table as (
@@ -55,10 +70,12 @@ SELECT *,
     FORMAT_DATE('%a', DATE(trip_start_timestamp)) trip_start_day_of_week
 FROM tmp_table
 """.format(args.bq_source)
+
 # Get default credentials
-credentials, project = auth.default()
-bqclient = bigquery.Client(credentials=credentials, project=args.project_id)
-bqstorageclient = bigquery_storage.BigQueryReadClient(credentials=credentials)
+# credentials, project = auth.default()
+# bqclient = bigquery.Client(credentials=credentials, project=args.project_id)
+# bqstorageclient = bigquery_storage.BigQueryReadClient(credentials=credentials)
+
 df = (
     bqclient.query(BQ_QUERY)
     .result()
@@ -128,19 +145,21 @@ rfr_pipe = Pipeline([
 ])
 
 # train the model
+print(f"train the model...")
 rfr_score = cross_val_score(rfr_pipe, X_train, y_train, scoring = 'neg_mean_squared_error', cv = 5)
 rfr_rmse = np.sqrt(-rfr_score)
 print("Crossvalidation RMSE:",rfr_rmse.mean())
+
 print(f"logging data to experiment run: {args.experiment_run}")
-with aiplatform.start_run(
-    f'{args.experiment_run}',
-) as my_run:
-    my_run.log_metrics(
-        {
-            "rmse" : round(float(rfr_rmse.mean()),2)
-        }
-    )
-    aiplatform.end_run()
+# with aiplatform.start_run(
+#     f'{args.experiment_run}',
+# ) as my_run:
+#     my_run.log_metrics(
+#         {
+#             "rmse" : round(float(rfr_rmse.mean()),2)
+#         }
+#     )
+#     aiplatform.end_run()
     
 final_model=rfr_pipe.fit(X_train, y_train)
 # Save the model pipeline

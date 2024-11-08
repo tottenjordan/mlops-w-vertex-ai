@@ -12,8 +12,6 @@
 4. Run pipeline manually (and optionally via schedule)
 5. Create a **pipeline trigger** using `Cloud Function with an Eventarc` that runs the pipeline when new data is inserted into the BigQuery dataset
 
----
-
 ## custom training package
 
 We'll create a Python package that contains the code for training a custom model in Vertex AI with a [prebuilt container](https://cloud.google.com/vertex-ai/docs/training/create-python-pre-built-container). This package will run as one of the steps in our continuous training pipeline
