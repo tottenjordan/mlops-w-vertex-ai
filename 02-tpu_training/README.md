@@ -26,6 +26,6 @@
 <details>
   <summary>Pipeline DAG in Google Cloud console</summary>
 
-<img src='../imgs/tpu_pipeline_v1.png' width='672' height='1085'>
+<img src='../imgs/tpu_pipeline_v1.png' width='814' height='1007'>
     
 </details>
