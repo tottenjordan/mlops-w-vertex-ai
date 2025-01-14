@@ -1044,7 +1044,7 @@
     }
   },
   "pipelineInfo": {
-    "name": "train-endpoint-deploy-v11"
+    "name": "train-endpoint-deploy-v12"
   },
   "root": {
     "dag": {
