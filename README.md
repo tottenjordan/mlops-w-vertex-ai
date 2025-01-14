@@ -3,11 +3,11 @@
 
 > code examples for MLOps pipelines 
 
-* [01-ct_training/](01-ct_training/) - trigger Vertex Pipeline for continuous training
+* [01-ct_training/](01-ct_training/) - continuous training
   * [00_data_prep.ipynb](01-ct_training/00_data_prep.ipynb) - prepare Chicago Taxi Trips dataset
-  * [01_continuous_training_pipeline.ipynb](01-ct_training/01_continuous_training_pipeline.ipynb) - Create and upload a custom training package; build and run Vertex AI Pipeline
-  * [02_event_trigger.ipynb](01-ct_training/02_event_trigger.ipynb) - Ceate a Cloud Function that runs the pipeline whenever new data is inserted into a BigQuery table
-* [02-tpu_training/](02-tpu_training/) - train model with TPUs; deploy model with GPUs
+  * [01_continuous_training_pipeline.ipynb](01-ct_training/01_continuous_training_pipeline.ipynb) - Create custom training package; build and run Vertex AI Pipeline
+  * [02_event_trigger.ipynb](01-ct_training/02_event_trigger.ipynb) - Create Cloud Function that runs the pipeline whenever new data is inserted into a BigQuery table
+* [02-tpu_training/](02-tpu_training/) - train with TPUs
   * [01_train_deploy_pipeline.ipynb](02-tpu_training/01_train_deploy_pipeline.ipynb) - Create and upload a custom training package; build and run Vertex AI Pipeline
 
 
